@@ -1,10 +1,12 @@
 1、格式化
-
+        --SDFormatter
+        
 2、写镜像
+        --Disk Imager
 
 3、在boot下添加文件名为SSH的文件（无后缀）
 
-4、网线+电源
+4、网线+电源（至少5V 1A）
 
 5、Putty连接
 
@@ -22,5 +24,25 @@
 
 9、连接到无线网络（可选）
 -----------------------------------------------------------------
-10、	换python变量（改py3）
+10、换python变量（改py3）
+        sudo rm -rf /usr/bin/python
+        sudo ln -s /usr/bin/python3.5  /usr/bin/python          #依据版本的不同可能py3的版本也不同，可以用  "ls /usr/bin/python*"  查看
+        
+11、安装TensorFlow
+        sudo pip3 install tensorflow
+        
+12、安装libatlas
+        sudo apt-get install libatlas-base-dev
+        
+13、安装pillow（可选）
+        sudo pip3 install pillow
+        
+14、安装matplotlib（可选）
+        sudo pip3 install matplotlib
+        
+tip：现在先别装Opencv
+
+15、测试TensorFlow
+
+        
 
