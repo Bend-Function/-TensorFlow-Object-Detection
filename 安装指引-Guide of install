@@ -44,5 +44,51 @@ tip：现在先别装Opencv
 
 15、测试TensorFlow
 
+
+-----------------------------------------------------------------
+
+16、去github下载protobuf
+        https://github.com/protocolbuffers/protobuf/releases
+	选择 protobuf-all-3.6.1.tar.gz            #可能与这里不同，但必须是-all-，一般是第一个
+
+17、安装
+        cd home/pi/Downloads
+        tar xvfz protobuf-all-3.6.1.tar.gz			#可能不同
+        cd protobuf-3.6.1					#可能不同
+
+        sudo make –j 4 				                #有风扇就用4个线程，没有就自己定吧
+        sudo make install
+        sudo ldconfig # refresh shared library cache.
+
+
+
+
+18、获得API
+	推荐旧版，新的建议在电脑上改好再复制到树莓派上
+        https://github.com/tensorflow/models            # 这是最新的获取路径
+        https://pan.baidu.com/s/1LxJ9TpGGDyas_sCVanSZgQ # 老板API下载地址
+        
+19、生成protoc
+	cd /home/pi/tf/models-master/research/          # 可能路径与我不同
+        protoc object_detection/protos/*.proto --python_out=.
+        
+20、添加环境变量
+	sudo nano /etc/profile
+        export PYTHONPATH=/home/pi/tf/models-master/research/:/home/pi/tf/models-master/research/slim/
+        
+21、重启
+	Sudo reboot     # 重启！！请保证已保存重要信息
+        
+22、env看环境变量
+        env
+        确认PYTHONPATH内信息无误
+        
+23、测试
+        cd /home/pi/tf/models-master/research/          # 可能路径与我不同
+        python object_detection/builders/model_builder_test.py
+
+Ok--测试成功
+-------------------------------------------------------------------------
+
         
 
