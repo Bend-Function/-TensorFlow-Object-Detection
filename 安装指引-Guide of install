@@ -34,10 +34,10 @@
 12、安装libatlas
         sudo apt-get install libatlas-base-dev
         
-13、安装pillow（可选）
+13、安装pillow
         sudo pip3 install pillow
         
-14、安装matplotlib（可选）
+14、安装matplotlib
         sudo pip3 install matplotlib
         
 tip：现在先别装Opencv
