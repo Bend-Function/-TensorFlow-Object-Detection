@@ -1,0 +1,15 @@
+1、	格式化
+2、	写镜像
+3、	在boot下添加文件名为SSH的文件（无后缀）
+4、	网线+电源
+5、	Putty连接
+6、	改源（apt-get）
+        sudo sed -i 's#://raspbian.raspberrypi.org#s://mirrors.ustc.edu.cn/raspbian#g' /etc/apt/sources.list 
+        sudo sed -i 's#://archive.raspberrypi.org/debian#s://mirrors.ustc.edu.cn/archive.raspberrypi.org#g' /etc/apt/sources.list.d/raspi.list
+        sudo apt-get update
+7、	装vnc server与设置tightvncpasswd(密码)
+        sudo apt-get install tightvncserver
+        tightvncpasswd(设置密码）
+        tightvncserver（启动）
+        
+8、	在电脑上连VNC
