@@ -1,109 +1,213 @@
+感谢 @ggguoxxxiang 他为这个API做了一个详细的中文教程
+https://www.bilibili.com/video/av21539370
+windows安装:https://blog.csdn.net/dy_guox/article/details/79081499
+
+
+
+# 我只负责安装
+
+# 视频经过大量裁剪，真实安装时间大约在2-3个小时左右（树莓派3B）
+
+# 树莓派上不推荐训练模型，他是来实现功能的
+
+# 树莓派一定要散热片，最好有风扇
+
+
+
 视频地址：
-	P1: https://www.bilibili.com/video/av31697636	# 系统安装
-	P2: https://www.bilibili.com/video/av31706598	# TensorFlow 安装
-	P3: https://www.bilibili.com/video/av31721104/	# Object Detection API 安装
+
+P1: https://www.bilibili.com/video/AV31697636	        # 系统安装
+
+P2: https://www.bilibili.com/video/AV31706598	        # TensorFlow 安装
+
+P3: https://www.bilibili.com/video/AV31721104/	        # Object Detection API 安装
+
+
 --------------------------------------------------------------------------------------------
+
 Part 1： 树莓派系统安装
+
 --------------------------------------------------------------------------------------------
 
 1、格式化
+
         --SDFormatter
+
         
+
 2、写镜像
+
         --Disk Imager
+
+
 
 3、在boot下添加文件名为SSH的文件（无后缀）
 
-4、网线+电源（至少5V 1A）
+
+
+4、网线+电源（至少5V 1A）     
+
+            # 官方建议2A，但1A也可以，若使用1A，请在后面的编译环节使用单线程
+
+
 
 5、Putty连接
 
+
+
 6、改源（apt-get）
+
         sudo sed -i 's#://raspbian.raspberrypi.org#s://mirrors.ustc.edu.cn/raspbian#g' /etc/apt/sources.list 
+
         sudo sed -i 's#://archive.raspberrypi.org/debian#s://mirrors.ustc.edu.cn/archive.raspberrypi.org#g' /etc/apt/sources.list.d/raspi.list
+
         sudo apt-get update
+
         
+
 7、装vnc server与设置tightvncpasswd(密码)
+
         sudo apt-get install tightvncserver
+
         tightvncpasswd(设置密码）
+
         tightvncserver（启动）
+
         
+
 8、在电脑上连VNC
+
+
 
 9、连接到无线网络（可选）
 
 
 --------------------------------------------------------------------------------------------
+
 Part2： TensorFlow安装
+
 --------------------------------------------------------------------------------------------
 
-10、换python变量（改py3）
-        sudo rm -rf /usr/bin/python
+10、换默认python版本（改py3）
+
+        sudo rm -rf /usr/bin/python        # 请仔细检查输入是否准确
+
         sudo ln -s /usr/bin/python3.5  /usr/bin/python          #依据版本的不同可能py3的版本也不同，可以用  "ls /usr/bin/python*"  查看
+
         
+
 11、安装TensorFlow
+
         sudo pip3 install tensorflow
+
         
-12、安装libatlas
+
+12、安装atlas
+
         sudo apt-get install libatlas-base-dev
+
         
+
 13、安装pillow
+
         sudo pip3 install pillow
+
         
+
 14、安装matplotlib
+
         sudo pip3 install matplotlib
+
         
+
 tip：现在先别装Opencv
+
+
 
 15、测试TensorFlow
 
 
 --------------------------------------------------------------------------------------------
+
 Part3： Object Detection API 安装
+
 --------------------------------------------------------------------------------------------
 
 16、去github下载protobuf
+
         https://github.com/protocolbuffers/protobuf/releases
-	选择 protobuf-all-3.6.1.tar.gz            #可能与这里不同，但必须是-all-，一般是第一个
+
+        选择 protobuf-all-3.6.1.tar.gz            #可能与这里不同，但必须是-all-，一般是第一个
+
+
 
 17、安装
-        cd home/pi/Downloads
-        tar xvfz protobuf-all-3.6.1.tar.gz			#可能不同
-        cd protobuf-3.6.1					#可能不同
 
-        sudo make –j 4 				                #有风扇就用4个线程，没有就自己定吧
+        cd home/pi/Downloads
+
+        tar xvfz protobuf-all-3.6.1.tar.gz	    	      #可能不同
+
+        cd protobuf-3.6.1                    	          #可能不同
+        
+        sudo make –j 4                 
+
+                # 有风扇就用4个线程，没有就2-3个； 
+
+                # 1A电源的建议使用  “sudo make” ，以免卡死
+
         sudo make install
+
         sudo ldconfig # refresh shared library cache.
 
 
 
-
 18、获得API
-	推荐旧版，新的建议在电脑上改好再复制到树莓派上
-        https://github.com/tensorflow/models            # 这是最新的获取路径
-        https://pan.baidu.com/s/1LxJ9TpGGDyas_sCVanSZgQ # 老板API下载地址
+
+        推荐旧版，新的建议在电脑上改好再复制到树莓派上
+
+        https://github.com/tensorflow/models              # 这是最新的获取路径
+
+        https://pan.baidu.com/s/1LxJ9TpGGDyas_sCVanSZgQ   # 老版API下载地址
         
+
 19、生成protoc
-	cd /home/pi/tf/models-master/research/          # 可能路径与我不同
-        protoc object_detection/protos/*.proto --python_out=.
-        
-20、添加环境变量
-	sudo nano /etc/profile
-        export PYTHONPATH=/home/pi/tf/models-master/research/:/home/pi/tf/models-master/research/slim/
-        
-21、重启
-	sudo reboot     # 重启！！请保证已保存重要信息
-        
-22、env看环境变量
-        env
-        确认PYTHONPATH内信息无误
-        
-23、测试
+
         cd /home/pi/tf/models-master/research/          # 可能路径与我不同
+
+        protoc object_detection/protos/*.proto --python_out=.
+
+        
+
+20、添加环境变量
+
+        sudo nano /etc/profile
+
+        export PYTHONPATH=/home/pi/tf/models-master/research/:/home/pi/tf/models-master/research/slim/
+
+        # 在最后一行添加，请使用方向键移动光标
+
+
+
+21、重启
+
+        sudo reboot     # 重启！！请保证已保存重要信息
+
+        
+
+22、查看环境变量
+
+        env
+
+        # 确认PYTHONPATH内信息无误
+
+        
+
+23、测试
+
+        cd /home/pi/tf/models-master/research/          # 可能路径与我不同
+
         python object_detection/builders/model_builder_test.py
 
-Ok--测试成功
-----------------------------------------------------------------------------------------
 
-        
 
+        Ok--测试成功
