@@ -1,0 +1,37 @@
+先决条件：安装完毕树莓派系统
+          参考https://github.com/Bend-Function/-TensorFlow-Object-Detection/blob/master/%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95-Guide%20of%20install
+              第一步
+
+1、用pip安装cv
+
+    sudo pip3 install opencv-python
+
+
+
+2、安装各种依赖库
+
+    sudo apt-get install libjpeg8-dev 
+
+    sudo apt-get install libtiff5-dev 
+
+    sudo apt-get install libjasper-dev 
+
+    sudo apt-get install libpng12-dev
+
+    sudo apt-get install libqt4-test
+
+    sudo apt-get install libqtgui4
+
+
+
+        一个很好的网站，如果程序提示什么东西找不到或不存在，他或许可以帮到你：
+
+            https://packages.ubuntu.com/
+
+
+
+3、测试
+
+            程序源码地址：
+
+            https://github.com/Bend-Function/-TensorFlow-Object-Detection/blob/master/cv_test.py
