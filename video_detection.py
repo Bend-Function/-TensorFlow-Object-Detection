@@ -51,18 +51,18 @@ category_index = label_map_util.create_category_index(categories)
 
 
 # 读取视频
-video_cap = cv2.VideoCapture(video_PATH)
-fps = int(video_cap.get(cv2.CAP_PROP_FPS))
+video_cap = cv2.VideoCapture(video_PATH)  
+fps = int(video_cap.get(cv2.CAP_PROP_FPS))    # 帧率
 
 
-width = int(video_cap.get(3))
+width = int(video_cap.get(3))         # 视频长，宽
 hight = int(video_cap.get(4))
 
 
-videoWriter = cv2.VideoWriter(out_PATH, fourcc, fps, (width, hight))
+videoWriter = cv2.VideoWriter(out_PATH, fourcc, fps, (width, hight)) 
 
 config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
+config.gpu_options.allow_growth = True    # 减小显存占用
 with detection_graph.as_default():
   with tf.Session(graph=detection_graph, config=config) as sess:
     # Definite input and output Tensors for detection_graph
@@ -80,7 +80,9 @@ with detection_graph.as_default():
         if ret == False:        # 没检测到就跳出
             break
         num += 1
-        print(num)
+        print(num)  # 输出检测到第几帧了
+        # print(num/fps) # 检测到第几秒了
+        
         image_np = frame
 
         image_np_expanded = np.expand_dims(image_np, axis=0)
