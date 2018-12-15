@@ -149,6 +149,8 @@ Part3： Object Detection API 安装
 
         cd protobuf-3.6.1                    	          #可能不同
         
+        ./configure             # 感谢@时间发货几十块  指出的问题
+        
         sudo make –j 4                 
 
                 # 有风扇就用4个线程，没有就2-3个； 
