@@ -58,6 +58,7 @@ with detection_graph.as_default():
 
         while True:
             ret, image_source = mv.read()  # 读取视频帧
+            image_source = cv2.cvtColor(image_source, cv2.COLOR_BGR2RGB)
             image_np = cv2.resize(image_source , (width, height), interpolation=cv2.INTER_CUBIC)
             image_np_expanded = np.expand_dims(image_np, axis=0)
             # Actual detection.
