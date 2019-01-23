@@ -84,7 +84,7 @@ with detection_graph.as_default():
         print(num)  # 输出检测到第几帧了
         # print(num/fps) # 检测到第几秒了
         
-        image_np = frame
+        image_np = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         image_np_expanded = np.expand_dims(image_np, axis=0)
         image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
@@ -109,7 +109,7 @@ with detection_graph.as_default():
             line_thickness=4)
 
         # 写视频
-        videoWriter.write(image_np)
+        videoWriter.write(cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR))
         
 videoWriter.release()
 end = time.time()
