@@ -74,6 +74,7 @@ with detection_graph.as_default():
                 category_index,
                 use_normalized_coordinates=True,
                 line_thickness=4)
+            image_np = cv2.cvtColor(image_source, cv2.COLOR_RGB2BGR)
             cv2.imshow("video", image_np)
             if cv2.waitKey(1) & 0xFF == ord('q'):  # 按q退出
                 break
